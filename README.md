@@ -58,16 +58,32 @@ notes about your debugging process. Being a strong debugger is all about
 developing a process, and it's helpful to document your steps as part of
 developing your own process.
 
-## Your Notes Here
+## How I debugged:
+  ## Tried to create a new toy, accessed developer tools network tab to check the error given:
 
-- Add a new toy when the toy form is submitted
+      - error: "Internal Server Error"
+      - exception: "#<NameError: uninitialized constant ToysController::Toys>"
+      - status: 500
+
+    - Changed the Toys.create(toy_params) method to Toy.create(toy_params) removing the s as Toy is the right model name.
+    - Retried creating a new toy, Jessie from Toy Story, error resolved.
+
+## Update the number of likes for a toy
+
+  - How I debugged:
+    - Clicked on the like to see what response I got, SyntaxError: Unexpected end of JSON input.
+    - This indicated a lack of a proper response format from the server when fetching in the ToyCard component's handleLikeClick function.
+    - Resolved this error by having the Controller#update method render a response in JSON format.
+
+## Donate a toy to Goodwill (and delete it from our database)
 
   - How I debugged:
 
-- Update the number of likes for a toy
+    - Tried to donate a toy, accessed developer tools network tab to check the error given:
 
-  - How I debugged:
+      - error: "Not Foundr"
+      - exception:"#<ActionController::RoutingError: No route matches [DELETE] \"toys1\">"
+      - status: 404
 
-- Donate a toy to Goodwill (and delete it from our database)
-
-  - How I debugged:
+    - This indicated a lack of destroy resource in the routes which I added.
+    - Retried donating a new toy, Woody, it got deleted from the database as well resolving the error.
